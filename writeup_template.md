@@ -34,7 +34,7 @@ I then explored different color spaces and different `skimage.hog()` parameters 
 
 Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
-[![HOG example)](out/hog.jpg)
+![HOG example](out/hog.jpg)
 
 ####2. Explain how you settled on your final choice of HOG parameters.
 
@@ -65,7 +65,7 @@ I trained a linear SVM using sklearn.svm.LinearSVC. I also augment data with hor
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-![Slide window](out/slide_window.jpg)
+![Slide window](out/slidewindow.jpg)
 
 I use Udacity algorithm for sliding window search. In purpose of some performance optimizations and to prevent false positives I localized search with ~ bottom half of window. In future this methodology may enhanced with ROI from Advanced Lane Finding algorithms.
 
