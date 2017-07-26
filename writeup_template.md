@@ -98,6 +98,6 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
 
 1. Currently I doesn't store history of car localizations, only current and previous state. Theoretically it may give more stable results.
 2. There is a space for improvement in ROI. Current algorithm quite inaccurate. Integration ROI from Advanced Lane Finding should improve the results.
-3. More data augmentation should help also.
+3. More data augmentation.
 
 
