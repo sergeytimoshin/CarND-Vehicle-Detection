@@ -70,13 +70,11 @@ class CarFinder:
             imshape = ctrans_tosearch.shape
             ctrans_tosearch = cv2.resize(ctrans_tosearch, (np.int(imshape[1]/scale), np.int(imshape[0]/scale)))
         ch1 = ctrans_tosearch[:,:,0]
-        # Define blocks and steps as above
         nxblocks = (ch1.shape[1] // self.params.pix_per_cell)-1
         nyblocks = (ch1.shape[0] // self.params.pix_per_cell)-1
-        # 64 was the orginal sampling rate, with 8 cells and 8 pix per cell
         window = 64
         nblocks_per_window = (window // self.params.pix_per_cell) -1
-        cells_per_step = step  # Instead of overlap, define how many cells to step
+        cells_per_step = step
         nxsteps = (nxblocks - nblocks_per_window) // cells_per_step
         nysteps = (nyblocks - nblocks_per_window) // cells_per_step
 
@@ -101,7 +99,6 @@ class CarFinder:
                     win_draw = np.int(window*scale)
                     boxes.append(((int(xbox_left), int(ytop_draw+ystart)),(int(xbox_left+win_draw),int(ytop_draw+win_draw+ystart))))
         return boxes
-
 
     # Define a function to draw bounding boxes on an image
     def draw_boxes(self, img, bboxes, color=(0, 0, 255), thick=6):

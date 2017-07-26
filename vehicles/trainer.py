@@ -10,7 +10,6 @@ from vehicles.params import Params
 import numpy as np
 import pickle
 
-
 class CarTrainer:
 
     def __init__(self):
@@ -29,7 +28,6 @@ class CarTrainer:
         scaled_X = self.X_scaler.transform(X)
         y = np.hstack((np.ones(len(car_features)), np.zeros(len(notcar_features))))
 
-        # random_state = 22
         X_train, X_test, y_train, y_test = train_test_split(scaled_X, y, test_size=0.2)
 
         self.svc = LinearSVC(loss='hinge')
@@ -60,12 +58,9 @@ class CarTrainer:
                 file_features = []
                 if self.params.spatial_feat == True:
                     spatial_features = bin_spatial(augmented_image, spatial_size=self.params.spatial_size)
-                    # print 'spat', spatial_features.shape
                     file_features.append(spatial_features)
                 if self.params.hist_feat == True:
-                    # Apply color_hist()
                     hist_features = color_hist(augmented_image, nbins=self.params.hist_bins)
-                    # print 'hist', hist_features.shape
                     file_features.append(hist_features)
                 if self.params.hog_feat == True:
                     if self.params.hog_channel == 'ALL':
@@ -75,8 +70,6 @@ class CarTrainer:
                             hog_features = np.ravel(hog_features)
                     else:
                         hog_features = get_hog_features(augmented_image[:, :, -1], self.params)
-                        # print 'hog', hog_features.shape
-                        # Append the new feature vector to the features list
                     file_features.append(hog_features)
 
                 features.append(np.concatenate(file_features))
