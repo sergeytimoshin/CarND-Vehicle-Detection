@@ -12,18 +12,19 @@ def train():
     trainer.train()
     trainer.dump_training_data()
 
-def draw_boxes(image):
+def draw_boxes(image_name, image):
     carfinder = CarFinder()
     boxes = carfinder.frame_proc(image)
     plt.imshow(boxes)
-    plt.show()
+    # plt.show()
+    plt.savefig('out_' + image_name[-5:])
 
 def test_on_images():
     test_images = glob.glob('../test_images/*.jpg')
     print(test_images)
     for image_name in test_images:
         image = mpimg.imread(image_name)
-        draw_boxes(image=image)
+        draw_boxes(image_name=image_name, image=image)
 
 def process_video_frame(image):
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
@@ -37,7 +38,7 @@ def test_on_video():
 
 # train()
 carfinder = CarFinder()
-# test_on_images()
-test_on_video()
+test_on_images()
+# test_on_video()
 
 
