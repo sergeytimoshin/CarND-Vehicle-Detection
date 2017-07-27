@@ -96,8 +96,16 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 
-1. Currently I doesn't store history of car localizations, only current and previous state. Theoretically it may give more stable results.
-2. There is a space for improvement in ROI. Current algorithm quite inaccurate. Integration ROI from Advanced Lane Finding should improve the results.
-3. More data augmentation.
+There is several issues: 
+1. Results far from ideal when few cars overlaps each other.
+2. False positives.
+3. Performance. Current pipeline is very slow, it certainly not appropriate for real time use.
+
+What can be improved:
+1. More fine-tuning of HOG parameters.
+2. Currently I doesn't store history of car localizations, only current and previous state. Theoretically it may give more stable results.
+3. There is a space for improvement in ROI. Current algorithm quite inaccurate. Integration ROI from Advanced Lane Finding should improve the results.
+4. More data augmentation (rotations, shadows, different light conditions).
+
 
 
