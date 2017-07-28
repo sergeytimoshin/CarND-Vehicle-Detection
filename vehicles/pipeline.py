@@ -38,7 +38,7 @@ def test_on_video():
 
 # train()
 carfinder = CarFinder()
-test_on_images()
-# test_on_video()
+# test_on_images()
+test_on_video()
 
 

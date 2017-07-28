@@ -29,14 +29,14 @@ class CarFinder:
         if (video and self.frame_counter % 2 == 0) or not video:  # Skip every second video frame
             heat = np.zeros_like(img[:, :, 0]).astype(np.float)
 
-            boxes = self.find_cars(img, self.params.height/2+50, self.params.height, self.params.width*3/4, self.params.width, 1.5, 2)
-            boxes += self.find_cars(img, self.params.height/2+50, self.params.height, 0, self.params.width/4, 1.5, 2)
+            boxes = self.find_cars(img, self.params.height/2+50, self.params.height-50, self.params.width*3/4, self.params.width, 1.5, 2)
+            boxes += self.find_cars(img, self.params.height/2+50, self.params.height-50, 0, self.params.width/4, 1.5, 2)
 
-            boxes += self.find_cars(img, self.params.height/2+50, self.params.height*3/4, self.params.width*3/4, self.params.width, 1.2, 3)
-            boxes += self.find_cars(img, self.params.height/2+50, self.params.height*3/4, 0, self.params.width/4, 1.2, 3)
+            boxes += self.find_cars(img, self.params.height/2+75, self.params.height*3/4, self.params.width*3/4, self.params.width, 1.2, 3)
+            boxes += self.find_cars(img, self.params.height/2+75, self.params.height*3/4, 0, self.params.width/4, 1.2, 3)
 
-            boxes += self.find_cars(img, self.params.height/2+50, self.params.height * 3 / 4, self.params.width/4, self.params.width * 3/ 4,
-                                    0.75, 4)
+            boxes += self.find_cars(img, self.params.height/2+100, self.params.height * 3 / 4, self.params.width/4, self.params.width * 3/4,
+                                    0.85, 4)
 
             heat = self.add_heat(heat, boxes)
             n_heat= self.previous_heat + heat
@@ -136,7 +136,7 @@ class CarFinder:
             y = size_y + bounding_box[0][1]
             aspect_ratio = (y - self.y_min) / 150.0 + 1.3
             if x > self.params.width*3/4 or x < self.params.width/4:
-                aspect_ratio *= 1.5
+                aspect_ratio *= 1.4
             aspect_ratio = max(aspect_ratio, aspect_dimensions)
             size_yy = np.sqrt(size_x * size_y / aspect_ratio)
             size_yy = int(size_yy)
