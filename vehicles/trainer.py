@@ -8,6 +8,7 @@ from vehicles.utils import get_hog_features, bin_spatial, color_hist
 from vehicles.dataset import CarDataset
 from vehicles.params import Params
 import numpy as np
+import matplotlib.image as mpimg
 import pickle
 
 class CarTrainer:
@@ -38,8 +39,8 @@ class CarTrainer:
 
     def extract_features(self, images):
         features = []
-        for file_p in tqdm(images):
-            image = cv2.imread(file_p)
+        for file in tqdm(images):
+            image = mpimg.imread(file)
             if self.params.color_space != 'RGB':
                 if self.params.color_space == 'HSV':
                     feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
@@ -54,22 +55,22 @@ class CarTrainer:
             else:
                 feature_image = np.copy(image)
 
-            for augmented_image in [feature_image, cv2.flip(feature_image, 1)]:
+            for augmented_image in [feature_image]: # , cv2.flip(feature_image, 1)
                 file_features = []
-                if self.params.spatial_feat == True:
+                if self.params.spatial_feat:
                     spatial_features = bin_spatial(augmented_image, spatial_size=self.params.spatial_size)
                     file_features.append(spatial_features)
-                if self.params.hist_feat == True:
+                if self.params.hist_feat:
                     hist_features = color_hist(augmented_image, nbins=self.params.hist_bins)
                     file_features.append(hist_features)
-                if self.params.hog_feat == True:
+                if self.params.hog_feat:
                     if self.params.hog_channel == 'ALL':
                         hog_features = []
                         for channel in range(augmented_image.shape[2]):
                             hog_features.append(get_hog_features(augmented_image[:, :, channel], self.params))
-                            hog_features = np.ravel(hog_features)
+                        hog_features = np.ravel(hog_features)
                     else:
-                        hog_features = get_hog_features(augmented_image[:, :, -1], self.params)
+                        hog_features = get_hog_features(augmented_image[:, :, self.params.hog_channel], self.params)
                     file_features.append(hog_features)
 
                 features.append(np.concatenate(file_features))
